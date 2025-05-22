@@ -1,10 +1,11 @@
 package com.school.website.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TeacherDTO {
     private Long id;
     private String name;

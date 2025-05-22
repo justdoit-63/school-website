@@ -1,8 +1,9 @@
-// TeacherService.java
 package com.school.website.service;
 
+import com.school.website.dto.TeacherDTO;
+
 public interface TeacherService {
-    Object getTeacherProfile(String username);
+    TeacherDTO getTeacherProfile(String username);
     void enterScore(Long studentId, Object scoreDto);
     void markAttendance(Long studentId, Object attendanceDto);
     void uploadAnswerScripts(Object uploadDto);

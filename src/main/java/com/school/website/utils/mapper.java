@@ -1,7 +1,7 @@
-package com.school.utils;
+package com.school.website.utils;
 
-import com.school.dto.*;
-import com.school.entity.*;
+import com.school.website.dto.*;
+import com.school.website.entity.*;
 
 public class Mapper {
 

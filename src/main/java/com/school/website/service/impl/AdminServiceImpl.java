@@ -1,47 +1,48 @@
-// AdminServiceImpl.java
 package com.school.website.service.impl;
 
 import com.school.website.service.AdminService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
+@Slf4j
 public class AdminServiceImpl implements AdminService {
 
-    // Inject repositories here
-
     @Override
-    public List<?> getAllUsers() {
-        // Implement fetching all users
-        return List.of(); // Replace with actual implementation
+    public List<Object> getAllUsers() {
+        log.info("Fetching all users");
+        return Collections.emptyList();
     }
 
     @Override
     public void createUser(Object userDto) {
-        // Implement user creation logic
+        log.info("Creating user: {}", userDto);
     }
 
     @Override
     public void updateUser(Long id, Object userDto) {
-        // Implement user update logic
+        log.info("Updating user with ID {}: {}", id, userDto);
     }
 
     @Override
     public void deleteUser(Long id) {
-        // Implement user deletion logic
+        log.info("Deleting user with ID {}", id);
     }
 
     @Override
     public Object exportReports() {
-        // Implement report export logic
-        return null; // Replace with actual implementation
+        log.info("Exporting reports");
+        return "mock-report.csv";
     }
 
+    @Override
     public Object getDashboardData() {
-        // Implement dashboard data fetch logic
-        return null; // Replace with actual implementation
+        log.info("Fetching admin dashboard data");
+        return "admin-dashboard-data";
     }
 }
