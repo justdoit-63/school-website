@@ -1,58 +1,51 @@
-package com.school.controller;
+package com.school.website.controller;
 
-import com.school.dto.AuthRequest;
-import com.school.dto.AuthResponse;
-import com.school.dto.RegisterRequest;
-import com.school.dto.UserDTO;
-import com.school.service.AuthService;
-import com.school.util.JwtUtil;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.school.website.service.AdminService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
-public class AuthController {
+@RequestMapping("/api/admin")
+public class AdminController {
 
-    private final AuthService authService;
-    private final JwtUtil jwtUtil;
+    private final AdminService adminService;
 
-    @Autowired
-    public AuthController(AuthService authService, JwtUtil jwtUtil) {
-        this.authService = authService;
-        this.jwtUtil = jwtUtil;
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
-        AuthResponse response = authService.authenticateUser(request);
-        return ResponseEntity.ok(response);
+    @GetMapping("/users")
+    public ResponseEntity<?> getAllUsers() {
+        return ResponseEntity.ok(adminService.getAllUsers());
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
-        authService.registerUser(request);
-        return ResponseEntity.ok("User registered successfully");
+    @PostMapping("/users")
+    public ResponseEntity<String> createUser(@RequestBody Object userDto) {
+        adminService.createUser(userDto);
+        return ResponseEntity.ok("User created successfully");
     }
 
-    @GetMapping("/me")
-    public ResponseEntity<UserDTO> getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
-        UserDTO userDto = authService.getCurrentUser(userDetails);
-        return ResponseEntity.ok(userDto);
+    @PutMapping("/users/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody Object userDto) {
+        adminService.updateUser(id, userDto);
+        return ResponseEntity.ok("User updated successfully");
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<String> logout() {
-        // For JWT, logout is client-side: remove token
-        return ResponseEntity.ok("Logged out successfully");
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        adminService.deleteUser(id);
+        return ResponseEntity.ok("User deleted successfully");
     }
 
-    @PostMapping("/change-password")
-    public ResponseEntity<String> changePassword(@RequestParam String oldPassword, @RequestParam String newPassword) {
-        authService.changePassword(oldPassword, newPassword);
-        return ResponseEntity.ok("Password changed successfully");
+    @GetMapping("/reports/export")
+    public ResponseEntity<?> exportReports() {
+        return ResponseEntity.ok(adminService.exportReports());
     }
+
+    @GetMapping("/dashboard")
+    public ResponseEntity<?> getAdminDashboard() {
+        return ResponseEntity.ok(adminService.getDashboardData());
+    }
+
+    // Add other admin-specific endpoints as needed
 }

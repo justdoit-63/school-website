@@ -1,16 +1,13 @@
 package com.school.website.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@AllArgsConstructor
+@Data
+@Builder
 public class StudentDTO {
-    private final Long id;
-    private final String username;
-    private final String email;
-    private final String fullName;
-    private final String grade;
-    private final String section;
-    // Add more fields as needed
+    private Long id;
+    private String name;
+    private String email;
+    private String grade;
 }
